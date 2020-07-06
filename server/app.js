@@ -22,7 +22,7 @@ mongoose.connection.on('error',(err)=>{
 });
 
 //PORT Configuration and Binding
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 //CORS - middleware between ports
 app.use(cors());

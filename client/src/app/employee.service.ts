@@ -13,13 +13,13 @@ export class EmployeeService {
 
     //get State List
     getStateList(){
-      return this.http.get('http://localhost:3000/api/statelist')
+      return this.http.get('api/statelist')
       .pipe(map(res => res.json()));
    }
 
   //get Employee
   getEmployees(){
-     return this.http.get('http://localhost:3000/api/employeelist')
+     return this.http.get('api/employeelist')
      .pipe(map(res => res.json()));
   }
 
@@ -27,13 +27,13 @@ export class EmployeeService {
     addEmployee(newEntry){
       var headers =  new Headers();
       headers.append('Content-Type', 'application/json');
-      return this.http.post('http://localhost:3000/api/employee', newEntry, {headers:headers})
+      return this.http.post('api/employee', newEntry, {headers:headers})
       .pipe(map(res => res.json()));
    }
 
     //delete Employee
     deleteEmployee(id){
-      return this.http.delete('http://localhost:3000/api/employee/'+id)
+      return this.http.delete('api/employee/'+id)
       .pipe(map(res => res.json()));
    }
 

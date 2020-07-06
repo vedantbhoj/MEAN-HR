@@ -8,8 +8,8 @@
 export class HeaderComponent implements OnInit {
 
   menuItems = [
-    {linkId:1, linkName: 'Home', linkUrl:'home'},
-    {linkId:2, linkName: 'Admin', linkUrl:'admin'},
+    {linkId:1, linkName: 'New Hire', linkUrl:'home'},
+    {linkId:2, linkName: 'Employees', linkUrl:'employee'},
     {linkId:3, linkName: 'Help', linkUrl:'help'}
   ];
 

@@ -6,6 +6,7 @@ const StateTax = require('../models/stateTax');
 //****** Tax Methods *********//
 router.get('/statelist', (req, res, next)=>{
     StateTax.find(function(err, stateTax){
+        //console.log(stateTax);
         res.json(stateTax);
     })
 });
@@ -23,7 +24,11 @@ router.post('/employee', (req, res, next)=>{
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         birth_date: req.body.birth_date,
-        pay_rate: req.body.pay_rate
+        pay_rate: req.body.pay_rate,
+        bonus: req.body.bonus,
+        reimbursement: req.body.reimbursement,
+        retirement: req.body.retirement,
+        stateSelected: req.body.stateSelected
     });
 
     console.log(newEntry);

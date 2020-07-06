@@ -8,18 +8,20 @@ import { AdminComponent } from './admin/admin.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import {APP_BASE_HREF} from '@angular/common';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeesComponent,
     AdminComponent,
-    HeaderComponent
+    HeaderComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, AppRoutingModule
   ],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,EmployeesComponent]
 })
 export class AppModule { }

@@ -1,3 +1,115 @@
-<div class="view container">
-  <h2 class="page-header">ADMIN PAGE</h2>
+<div class="view admin">
+  <div class="row">
+
+    <div class="col-xl" style="margin-right: 20px;">
+      <h2 class="page-header">All Employee Compensation</h2>
+      <table style="font-size: 13px;" class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Hourly Rate</th>
+            <th scope="col">Bonus</th>
+            <th scope="col">Reimbursement</th>
+            <th scope="col">(401k)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td> {{employee.first_name}}</td>
+            <td> {{employee.last_name}}</td>
+            <td> ${{employee.pay_rate}}</td>
+            <td> ${{employee.bonus}}</td>
+            <td> ${{employee.reimbursement}}</td>
+            <td> ${{employee.retirement}}</td>
+            <td> <input type="button" (click)="viewCompensation(employee)" value="view" class="btn btn-success"></td>
+            <td> <input type="button" (click)="deleteEmployee(employee._id)" value="Delete" class="btn btn-danger"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-xl">
+      <h5><span *ngIf="first_name && last_name">Summary for {{first_name}} {{last_name}}</span></h5>
+      <table class="table table-striped" style="font-size: small;">
+
+        <thead>
+          <tr style="background-color: coral;">
+            <th scope="col">EARNINGS (+)</th>
+            <th scope="col">MONTHLY</th>
+            <th scope="col">ANNUAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">Salary</td>
+            <td>${{roundNumber(monthlyRate)}}</td>
+            <td>${{roundNumber(monthlyRate*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Bonus</td>
+            <td>${{roundNumber(bonus)}}</td>
+            <td>${{roundNumber(bonus*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Reimbursement</td>
+            <td>${{roundNumber(reimbursement)}}</td>
+            <td>${{roundNumber(reimbursement*12)}}</td>
+          </tr>
+          <tr style="color: green; font-size: 15px; font-weight: bolder;">
+            <th scope="row">Total</th>
+            <th>${{roundNumber(earnings)}}</th>
+            <th>${{roundNumber(earnings*12)}}</th>
+          </tr>
+        </tbody>
+
+        <thead>
+          <tr style="background-color: coral;">
+            <th scope="col">TAXES/DEDUCTIONS (-)</th>
+            <th scope="col">MONTHLY</th>
+            <th scope="col">ANNUAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">Federal Income Tax</td>
+            <td>${{roundNumber(fedTax)}}</td>
+            <td>${{roundNumber(fedTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row"><span style="color: brown; font-weight:bolder;">{{stateSelected}}</span> State Income Tax ({{stateTaxPct}}%)</td>
+            <td>${{roundNumber(stateTax)}}</td>
+            <td>${{roundNumber(stateTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Social Security Tax</td>
+            <td>${{roundNumber(ssnTax)}}</td>
+            <td>${{roundNumber(ssnTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Retirement(401k)</td>
+            <td>${{roundNumber(retirement)}}</td>
+            <td>${{roundNumber(retirement*12)}}</td>
+          </tr>
+          <tr style="color: red; font-size: 15px;  font-weight: bolder;">
+            <th scope="row">Total</th>
+            <th>${{roundNumber(deductions)}}</th>
+            <th>${{roundNumber(deductions*12)}}</th>
+          </tr>
+        </tbody>
+
+        <thead>
+          <tr style="background-color:lightgreen; font-size: 1rem;">
+            <th scope="col">NET PAY</th>
+            <th>${{roundNumber(netpay)}}</th>
+            <th>${{roundNumber(netpay*12)}}</th>
+          </tr>
+        </thead>
+
+      </table>
+    </div>
+
+  </div>
+
 </div>

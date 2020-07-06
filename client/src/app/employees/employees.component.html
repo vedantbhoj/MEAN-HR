@@ -1,10 +1,12 @@
+<!-- HOME View -->
+
 <div class="view container">
 
   <div class="row">
 
     <div class="col-sm">
-      <h4 class="page-header">Add Employee Details</h4>
-      <form (submit)="addEmployee()" ngNativeValidate>
+      <h4 class="page-header">Employee Details</h4>
+      <form #employeeForm="ngForm" (submit)="addEmployee()" ngNativeValidate>
 
         <div class="row">
           <div class="col-sm">
@@ -24,49 +26,143 @@
         <div class="row">
           <div class="col-sm">
             <div class="form-group">
-              <label>Birtdate</label>
+              <label>Birth Date</label>
               <input type="date" [(ngModel)]="birth_date" name="birth_date" class="form-control" required>
             </div>
           </div>
           <div class="col-sm">
             <div class="form-group">
-              <label>Pay Rate(hr)</label>
-              <input type="number" [(ngModel)]="pay_rate" name="pay_rate" class="form-control" required>
+              <label>Taxable State</label>
+              <select ngModel="stateSelected" (change)="calculateStateTax($event.target.value); reRender()" class="form-control" required>
+                <option *ngFor="let state of states" value={{state.abbreviation}}>
+                  {{state.name}}
+                </option>
+              </select>
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <select class="form-control" required>
-            <option value="0.00">Select State</option>
-            <option *ngFor="let state of states" value={{state.tax}}>
-              {{state.name}}
-            </option>
-          </select>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Hourly Rate</label>
+              <input type="number" (input)="calculateFedTax($event.target.value); reRender()" [(ngModel)]="pay_rate" name="pay_rate"
+                class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Retirement(401k) </label>
+              <input type="number" [(ngModel)]="retirement" name="retirement" class="form-control" required>
+            </div>
+          </div>
         </div>
-        <input type="submit" class="btn btn btn-success" value="Add">
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Bonus</label>
+              <input type="number" (input)="reRender()" [(ngModel)]="bonus" name="bonus" class="form-control" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Reimbursement</label>
+              <input type="number" (input)="reRender()" [(ngModel)]="reimbursement" name="reimbursement" class="form-control" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <input type="submit" class="btn btn btn-success" value="Add">
+            &nbsp;&nbsp;
+            <input type="button" class="btn btn btn-danger" (click)=" employeeForm.reset()" value="Reset">
+          </div>
+        </div>
       </form>
     </div>
 
     <div class="col-sm">
-      <table class="table table-striped">
+      <h5><span *ngIf="first_name && last_name"> Summary for {{first_name}} {{last_name}}</span></h5>
+      <table class="table table-striped" style="font-size: small;">
+
         <thead>
-          <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Birth Date</th>
-            <th scope="col">Pay Rate(per hour)</th>
-            <th></th>
+          <tr style="background-color: coral;">
+            <th scope="col">EARNINGS (+)</th>
+            <th scope="col">MONTHLY</th>
+            <th scope="col">ANNUAL</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of employees">
-            <th scope="row"> {{employee.first_name}}</th>
-            <td> {{employee.last_name}}</td>
-            <td>{{employee.birth_date}}</td>
-            <td> {{employee.pay_rate}}</td>
-            <td> <input type="button" (click)="deleteEmployee(employee._id)" value="Delete" class="btn btn-danger"></td>
+          <tr>
+            <td scope="row">Salary</td>
+            <td>${{roundNumber(monthlyRate)}}</td>
+            <td>${{roundNumber(monthlyRate*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Bonus</td>
+            <td>${{roundNumber(bonus)}}</td>
+            <td>${{roundNumber(bonus*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Reimbursement</td>
+            <td>${{roundNumber(reimbursement)}}</td>
+            <td>${{roundNumber(reimbursement*12)}}</td>
+          </tr>
+          <tr style="color: green; font-size: 15px; font-weight: bolder;">
+            <th scope="row">Total</th>
+            <th>${{roundNumber(earnings)}}</th>
+            <th>${{roundNumber(earnings*12)}}</th>
           </tr>
         </tbody>
+
+        <thead>
+          <tr style="background-color: coral;">
+            <th scope="col">TAXES/DEDUCTIONS (-)</th>
+            <th scope="col">MONTHLY</th>
+            <th scope="col">ANNUAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">Federal Income Tax</td>
+            <td>${{roundNumber(fedTax)}}</td>
+            <td>${{roundNumber(fedTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row"><span style="color: brown; font-weight:bolder;">{{stateSelected}}</span> State Income Tax ({{stateTaxPct}}%)</td>
+            <td>${{roundNumber(stateTax)}}</td>
+            <td>${{roundNumber(stateTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Social Security Tax</td>
+            <td>${{roundNumber(ssnTax)}}</td>
+            <td>${{roundNumber(ssnTax*12)}}</td>
+          </tr>
+          <tr>
+            <td scope="row">Retirement(401k)</td>
+            <td>${{roundNumber(retirement)}}</td>
+            <td>${{roundNumber(retirement*12)}}</td>
+          </tr>
+          <tr style="color: red; font-size: 15px;  font-weight: bolder;">
+            <th scope="row">Total</th>
+            <th>${{roundNumber(deductions)}}</th>
+            <th>${{roundNumber(deductions*12)}}</th>
+          </tr>
+        </tbody>
+
+        <thead>
+          <tr style="background-color:lightgreen; font-size: 1rem;">
+            <th scope="col">NET PAY</th>
+            <th>${{roundNumber(netpay)}}</th>
+            <th>${{roundNumber(netpay*12)}}</th>
+          </tr>
+        </thead>
+
       </table>
     </div>
 

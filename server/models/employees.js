@@ -17,6 +17,22 @@ const EmployeeSchema = mongoose.Schema({
     pay_rate :{
         type: String,
         required: true
+    },
+    bonus :{
+        type: String,
+        required: true
+    },
+    reimbursement :{
+        type: String,
+        required: true
+    },
+    retirement :{
+        type: String,
+        required: true
+    },
+    stateSelected :{
+        type: String,
+        required: true
     }
 });
 

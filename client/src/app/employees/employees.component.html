@@ -1,0 +1,75 @@
+<div class="view container">
+
+  <div class="row">
+
+    <div class="col-sm">
+      <h4 class="page-header">Add Employee Details</h4>
+      <form (submit)="addEmployee()" ngNativeValidate>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" [(ngModel)]="first_name" name="first_name" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" [(ngModel)]="last_name" name="last_name" class="form-control" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Birtdate</label>
+              <input type="date" [(ngModel)]="birth_date" name="birth_date" class="form-control" required>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="form-group">
+              <label>Pay Rate(hr)</label>
+              <input type="number" [(ngModel)]="pay_rate" name="pay_rate" class="form-control" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <select class="form-control" required>
+            <option value="0.00">Select State</option>
+            <option *ngFor="let state of states" value={{state.tax}}>
+              {{state.name}}
+            </option>
+          </select>
+        </div>
+        <input type="submit" class="btn btn btn-success" value="Add">
+      </form>
+    </div>
+
+    <div class="col-sm">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">Pay Rate(per hour)</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <th scope="row"> {{employee.first_name}}</th>
+            <td> {{employee.last_name}}</td>
+            <td>{{employee.birth_date}}</td>
+            <td> {{employee.pay_rate}}</td>
+            <td> <input type="button" (click)="deleteEmployee(employee._id)" value="Delete" class="btn btn-danger"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

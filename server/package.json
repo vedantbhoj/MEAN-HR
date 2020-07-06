@@ -1,0 +1,27 @@
+{
+  "name": "mean-hr",
+  "version": "1.0.0",
+  "description": "A Simple MEAN HR Application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start http://localhost:3000/ & node app.js"
+  },
+  "keywords": [
+    "MEAN",
+    "JavaScript",
+    "Web",
+    "Application",
+    "HR"
+  ],
+  "author": "Vedant Bhoj",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cli": "^10.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.21",
+    "nodemon": "^2.0.4"
+  }
+}

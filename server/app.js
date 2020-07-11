@@ -8,9 +8,13 @@ var cors = require('cors');
 var app = express();
 
 const route = require('./routes/route');
+const { toUnicode } = require('punycode');
 
 //Mongoose Connections
-mongoose.connect('mongodb+srv://Vedant:ysrtrznCQyERtb6o@mycluster.ro44w.mongodb.net/HRApp?retryWrites=true&w=majority');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://Vedant:ysrtrznCQyERtb6o@mycluster.ro44w.mongodb.net/HRApp?retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 mongoose.connection.on('connected',()=>{
     console.log('Connected MongoDB');
@@ -22,7 +26,7 @@ mongoose.connection.on('error',(err)=>{
 });
 
 //PORT Configuration and Binding
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 //CORS - middleware between ports
 app.use(cors());

@@ -2,7 +2,7 @@
 
 ### M - MongoDb 
 ### E - Express  
-### A - Angular 2+
+### A - Angular
 ### N - NodeJs
 
 ## MEAN Architecture

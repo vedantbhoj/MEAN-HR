@@ -5,6 +5,9 @@
 ### A - Angular
 ### N - NodeJs
 
+HR web application using MEAN stack. The application allows you to enter employee names, salary information, deductions, and perform some calculations for their pay based on the information input.
+
+
 ## MEAN Architecture
 ![](https://github.com/vedantbhoj/MEAN-HR/blob/master/Documentation/mean.png)
 

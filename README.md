@@ -1,6 +1,6 @@
 # MEAN Stack Salary Calculator for HR
 
-# Deployed Application - (https://hr-application-vedant.herokuapp.com/)
+Deployed Application - (https://hr-application-vedant.herokuapp.com/)
 
 ### M - MongoDb 
 ### E - Express  

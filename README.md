@@ -1,4 +1,4 @@
-# MEAN Stack Salary Calulator for HR
+# MEAN Stack Salary Calculator for HR
 
 ### M - MongoDb 
 ### E - Express  
